@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import cities from './cities';
 import './App.css';
+import renderForecast from './renderForecast';
 
 const WeatherComponent = () => {
   const [city, setCity] = useState('');
@@ -11,6 +12,7 @@ const WeatherComponent = () => {
   const [error, setError] = useState(null);
   const [filteredCities, setFilteredCities] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
+  const [inputEmpty, setInputEmpty] = useState(false);
   const API_KEY = 'b7815a2894c6e8287d7f08c58c1c77fb';
 
   const fetchWeather = async (cityName) => {
@@ -29,14 +31,11 @@ const WeatherComponent = () => {
     }
   };
 
-  // useEffect(() => {
-  //   fetchWeather(city);
-  // }, [city]);
-
   const handleInputChange = (event) => {
     const value = event.target.value;
     setCity(value);
     if (value.length > 0) {
+      setInputEmpty(false)
       const filtered = cities.filter((city) =>
         city.toLowerCase().startsWith(value.toLowerCase())
       );
@@ -51,6 +50,15 @@ const WeatherComponent = () => {
     setCity(cityName);
     setShowDropdown(false);
     fetchWeather(cityName);
+  };
+
+  const handleGetWeather = () => {
+    if (city.trim() === '') {
+      setInputEmpty(true);
+    } else {
+      setInputEmpty(false);
+      fetchWeather(city);
+    }
   };
 
   const formatDate = (timestamp) => {
@@ -70,61 +78,9 @@ const WeatherComponent = () => {
     return <img src={iconUrl} alt="Weather Icon" />;
   };
 
-  const renderForecast = () => {
-    if (!forecastData || !forecastData.list || forecastData.list.length === 0) return null;
-
-    // Получаем прогноз на завтра и послезавтра
-    const today = new Date();
-    const tomorrow = new Date(today);
-    tomorrow.setDate(today.getDate() + 1);
-    const afterTomorrow = new Date(today);
-    afterTomorrow.setDate(today.getDate() + 2);
-
-    const filteredForecast = forecastData.list.filter(item => {
-      const itemDate = new Date(item.dt * 1000);
-      return itemDate.getDate() === tomorrow.getDate() || itemDate.getDate() === afterTomorrow.getDate();
-    });
-
-    if (filteredForecast.length < 2) return null;
-
-    const tomorrowForecast = filteredForecast.find(item => {
-      const itemDate = new Date(item.dt * 1000);
-      return itemDate.getDate() === tomorrow.getDate();
-    });
-
-    const afterTomorrowForecast = filteredForecast.find(item => {
-      const itemDate = new Date(item.dt * 1000);
-      return itemDate.getDate() === afterTomorrow.getDate();
-    });
-
-    return (
-      <div>
-        
-        {tomorrowForecast && (
-          <div>
-            <h3>Tomorrow</h3>
-            <p>Date: {formatDate(tomorrowForecast.dt)}</p>
-            <p>Temperature: {tomorrowForecast.main.temp}°K</p>
-            <p>Weather: {tomorrowForecast.weather[0].description}</p>
-            <WeatherIcon iconCode={tomorrowForecast.weather[0].icon} />
-          </div>
-        )}
-        {afterTomorrowForecast && (
-          <div>
-            <h3>Day after tomorrow</h3>
-            <p>Date: {formatDate(afterTomorrowForecast.dt)}</p>
-            <p>Temperature: {afterTomorrowForecast.main.temp}°K</p>
-            <p>Weather: {afterTomorrowForecast.weather[0].description}</p>
-            <WeatherIcon iconCode={afterTomorrowForecast.weather[0].icon} />
-          </div>
-        )}
-      </div>
-    );
-  };
-
   return (
     <div>
-      <h1>Weather App</h1>
+      {weatherData && <h2>{weatherData.name}</h2>}
       <div style={{ position: 'relative' }}>
         <input
           type="text"
@@ -132,8 +88,9 @@ const WeatherComponent = () => {
           onChange={handleInputChange}
           placeholder="Enter city name"
           autoComplete="off"
+          name="Enter city name"
         />
-        <button onClick={() => fetchWeather(city)}>Get Weather</button>
+        <button onClick={handleGetWeather}>Get Weather</button>
         {showDropdown && (
           <ul className='ul-list'>
             {filteredCities.map((city) => (
@@ -150,9 +107,10 @@ const WeatherComponent = () => {
       </div>
       {loading && <div>Loading...</div>}
       {error && <div>Error: {error.message}</div>}
+      {inputEmpty && <div>Please enter a city name</div>} {/* Уведомление о пустом поле ввода */}
       {weatherData && (
         <div>
-          <h2>Current Weather</h2>
+          <h3>Curent weather</h3>
           <p>Date: {formatDate(weatherData.dt)}</p>
           <p>Temperature: {weatherData.main.temp}°K</p>
           <p>Weather: {weatherData.weather[0].description}</p>
@@ -161,7 +119,7 @@ const WeatherComponent = () => {
           <WeatherIcon iconCode={weatherData.weather[0].icon} />
         </div>
       )}
-      {renderForecast()}
+      {forecastData && renderForecast(forecastData, formatDate, WeatherIcon)}
     </div>
   );
 };
