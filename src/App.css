@@ -1,3 +1,43 @@
+.weather-container {
+  border: 1px solid #ccc;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.very-cold {
+  background-color: #66ccff; /* Light blue */
+}
+
+.cold {
+  background-color: #a6dcef; /* Sky blue */
+}
+
+.moderate {
+  background-color: #a3e9a4; /* Light green */
+}
+
+.warm {
+  background-color: #ffcc80; /* Light orange */
+}
+
+.hot {
+  background-color: #ff9999; /* Light red */
+}
+
+.very-hot {
+  background-color: #ff6666; /* Red */
+}
+
+
+
+
+
+.input-field {
+  margin: 29.5px 0;
+}
+
+
+
 .ul-list {
   list-style-type: 'none';
   margin: 0;
@@ -7,6 +47,14 @@
 .li-item {
   padding: 8px;
   cursor: pointer;
+}
+
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  margin-top: 50px;
 }
 
 
