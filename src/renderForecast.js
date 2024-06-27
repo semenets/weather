@@ -13,18 +13,18 @@ const renderForecast = (forecastData, formatDate, WeatherIcon, kelvinToCelsius) 
     });
 
     if (filteredForecast.length === 0) return null;
-
+    
     const dayForecast = filteredForecast[0];
 
     return (
-      <div key={dayForecast.dt} className={`forecast-day ${getTemperatureClass(kelvinToCelsius(dayForecast.main.temp))}`}>
+      <div key={dayForecast.dt} className={`weather-column forecast-day ${getTemperatureClass(kelvinToCelsius(dayForecast.main.temp))}`}>
         <h3>{date.toLocaleDateString('en-GB', { weekday: 'long' })}</h3>
         <p>Date: {formatDate(dayForecast.dt)}</p>
-        <p>Temperature: {kelvinToCelsius(dayForecast.main.temp)}°C</p>
+        <WeatherIcon iconCode={dayForecast.weather[0].icon} />
+        <p className="temperature">{kelvinToCelsius(dayForecast.main.temp)}°</p>
         <p>Weather: {dayForecast.weather[0].description}</p>
         <p>Humidity: {dayForecast.main.humidity}%</p>
         <p>Wind Speed: {dayForecast.wind.speed} m/s</p>
-        <WeatherIcon iconCode={dayForecast.weather[0].icon} />
       </div>
     );
   };
@@ -38,10 +38,10 @@ const renderForecast = (forecastData, formatDate, WeatherIcon, kelvinToCelsius) 
   const afterTomorrowForecast = getForecastForDay(afterTomorrow);
 
   return (
-    <div>
+    <>
       {tomorrowForecast}
       {afterTomorrowForecast}
-    </div>
+    </>
   );
 };
 

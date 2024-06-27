@@ -1,51 +1,100 @@
-.weather-container {
+.city-name {
+  color: #fff;
+  text-align: center;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.enter-city {
+  text-align: center;
+  padding-bottom: 17px;
+}
+
+.enter-city input {
+  height: 25px;
+  width: 200px;
+  border-radius: 5px;
+  padding-left: 10px;
+  background-color:transparent;
+  border: 1px solid #fff;
+  color: #fff;
+  font-size: 20px;
+  outline: none;
+}
+
+.enter-city button {
+  padding: 8px;
+  background-color: #0b32e0;
+  color: #fff;
+  border: none;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.error-text {
+  text-align: center;
+  color: red;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.weather-today {
   border: 1px solid #ccc;
-  margin-top: 20px;
   transition: background-color 0.3s ease;
 }
-
-.very-cold {
-  background-color: #66ccff; /* Light blue */
-}
-
-.cold {
-  background-color: #a6dcef; /* Sky blue */
-}
-
-.moderate {
-  background-color: #a3e9a4; /* Light green */
-}
-
-.warm {
-  background-color: #ffcc80; /* Light orange */
-}
-
-.hot {
-  background-color: #ff9999; /* Light red */
-}
-
-.very-hot {
-  background-color: #ff6666; /* Red */
-}
-
-
-
-
 
 .input-field {
   margin: 29.5px 0;
 }
 
+.container-weather {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 20px;
+  padding: 0 20px;
+}
 
+.weather-column {
+  flex: 1;
+  border: 1px solid #000;
+  padding: 10px;
+  text-align: center;
+  border-radius: 10px;
+}
+
+@media (max-width: 768px) {
+  .container-weather {
+      flex-direction: column;
+  }
+}
+
+.weather-column img {
+  width: 150px;
+  height: 150px;
+  image-rendering: -moz-crisp-edges; /* Firefox */
+  image-rendering: -o-crisp-edges; /* Opera */
+  image-rendering: -webkit-optimize-contrast; /* Webkit (non-standard naming) */
+  image-rendering: crisp-edges;
+  image-rendering: pixelated; /* Chrome */
+}
 
 .ul-list {
-  list-style-type: 'none';
-  margin: 0;
+  list-style-type: '';
+  margin: 0 auto;
   padding: 0;
+  width: 200px;
+  text-align: center;
 }
 
 .li-item {
   padding: 8px;
+  color: #fff;
+  font-size: 18px;
+  margin-bottom: 10px;
+  border: 1px solid #fff;
+  border-radius: 5px;
   cursor: pointer;
 }
 
@@ -54,7 +103,43 @@
   justify-content: center;
   align-items: center;
   height: 50px;
-  margin-top: 50px;
+  margin: 50px;
 }
 
+.temperature {
+  font-size: 50px;
+  color: #fff;
+  font-weight: bold;
+  margin: 10px;
+}
 
+/* temperature colors */
+.very-cold {
+  background-color: #66ccff; /* Light blue */
+  opacity: 0.9;
+}
+
+.cold {
+  background-color: #a6dcef; /* Sky blue */
+  opacity: 0.9;
+}
+
+.moderate {
+  background-color: #a3e9a4; /* Light green */
+  opacity: 0.9;
+}
+
+.warm {
+  background-color: #ffcc80; /* Light orange */
+  opacity: 0.9;
+}
+
+.hot {
+  background-color: #ff9999; /* Light red */
+  opacity: 0.9;
+}
+
+.very-hot {
+  background-color: #ff6666; /* Red */
+  opacity: 0.8;
+}

@@ -108,15 +108,15 @@ const WeatherComponent = () => {
   };
 
   const WeatherIcon = ({ iconCode }) => {
-    const iconUrl = `http://openweathermap.org/img/wn/${iconCode}.png`;
-    return <img src={iconUrl} alt="Weather Icon" />;
+    const iconUrl = `http://openweathermap.org/img/wn/${iconCode}@2x.png`; // Использование иконок высокого разрешения
+    return <img src={iconUrl} alt="Weather Icon" className="icon" />;
   };
 
   return (
     <div>
-      {weatherData && <h2>{weatherData.name}</h2>}
+      {weatherData && <h2 className="city-name">{weatherData.name}</h2>}
       {!loading && (
-        <div>
+        <div className="enter-city">
           <input
             type="text"
             value={city}
@@ -126,7 +126,7 @@ const WeatherComponent = () => {
             name="Enter city name"
             className="input-field"
           />
-          <button onClick={handleGetWeather}>Get Weather</button>
+          <button onClick={handleGetWeather}>Get weather</button>
           {showDropdown && (
             <ul className='ul-list'>
               {filteredCities.map((city) => (
@@ -158,20 +158,22 @@ const WeatherComponent = () => {
           />
         </div>
       )}
-      {error && <div>Error: City not found</div>}
-      {inputEmpty && <div>Please enter a city name</div>}
+      {error && <div className="error-text">Error: City not found</div>}
+      {inputEmpty && <div className="error-text">Please enter a city name</div>}
+      <div className="container-weather">
       {weatherData && (
-        <div className={`weather-container ${getTemperatureClass(kelvinToCelsius(weatherData.main.temp))}`}>
+        <div className={`weather-column weather-today ${getTemperatureClass(kelvinToCelsius(weatherData.main.temp))}`}>
           <h3>Current weather</h3>
           <p>Date: {formatDate(weatherData.dt)}</p>
-          <p>Temperature: {kelvinToCelsius(weatherData.main.temp)}°C</p>
+          <WeatherIcon iconCode={weatherData.weather[0].icon} />
+          <p className="temperature">{kelvinToCelsius(weatherData.main.temp)}°</p>
           <p>Weather: {weatherData.weather[0].description}</p>
           <p>Humidity: {weatherData.main.humidity}%</p>
           <p>Wind Speed: {weatherData.wind.speed} m/s</p>
-          <WeatherIcon iconCode={weatherData.weather[0].icon} />
         </div>
       )}
       {forecastData && renderForecast(forecastData, formatDate, WeatherIcon, kelvinToCelsius)}
+      </div>
     </div>
   );
 };
