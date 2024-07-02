@@ -1,5 +1,5 @@
 import React from 'react';
-import getTemperatureClass from './getTemperatureClass'; // Импорт функции
+import getTemperatureClass from './getTemperatureClass';
 
 const renderForecast = (forecastData, formatDate, WeatherIcon, kelvinToCelsius) => {
   if (!forecastData || !forecastData.list || forecastData.list.length === 0) return null;

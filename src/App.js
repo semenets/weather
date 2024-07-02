@@ -15,7 +15,7 @@ const WeatherComponent = () => {
   const [filteredCities, setFilteredCities] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
   const [inputEmpty, setInputEmpty] = useState(false);
-  const API_KEY = 'b7815a2894c6e8287d7f08c58c1c77fb';
+  const API_KEY = process.env.REACT_APP_API_KEY;
 
   const kelvinToCelsius = (kelvin) => {
     return (kelvin - 273.15).toFixed(1);
@@ -108,7 +108,7 @@ const WeatherComponent = () => {
   };
 
   const WeatherIcon = ({ iconCode }) => {
-    const iconUrl = `http://openweathermap.org/img/wn/${iconCode}@2x.png`; // Использование иконок высокого разрешения
+    const iconUrl = `http://openweathermap.org/img/wn/${iconCode}@2x.png`;
     return <img src={iconUrl} alt="Weather Icon" className="icon" />;
   };
 

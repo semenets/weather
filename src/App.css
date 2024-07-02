@@ -23,11 +23,11 @@
 }
 
 .enter-city button {
-  padding: 8px;
+  height: 30px;
   background-color: #0b32e0;
   color: #fff;
   border: none;
-  font-size: 16px;
+  font-size: 20px;
   border-radius: 5px;
   cursor: pointer;
 }
