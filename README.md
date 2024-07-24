@@ -7,7 +7,7 @@ A simple and interactive weather forecasting app built with React. This applicat
 ## Features
 
 - **Current Weather:** Get the latest weather conditions for any city.
-- **3-Day Forecast:** View a detailed weather forecast for the next five days.
+- **3-Day Forecast:** View a detailed weather forecast for the next three days.
 - **Geolocation Support:** Automatically fetch weather data based on your current location.
 - **Dynamic City Search:** Search for cities dynamically as you type.
 - **Responsive Design:** Optimized for both desktop and mobile devices.
